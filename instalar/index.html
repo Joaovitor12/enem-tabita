@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Instalar ENEM da Tabita</title>
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../icon-192.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#1f4fd1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ENEM Tabita">
+<style>
+:root { --bg:#f6f5f1; --card:#fff; --ink:#1d1c22; --muted:#6b6975; --line:#e4e1da; --accent:#1f4fd1; --good:#1d7a4c; --soft:#e6ecfb; }
+@media (prefers-color-scheme: dark) { :root { --bg:#15151a; --card:#1f1f26; --ink:#efeef3; --muted:#a09eab; --line:#33323c; --accent:#7ea0ff; --good:#5ccf93; --soft:#232c47; color-scheme: dark; } }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Segoe UI", Roboto, system-ui, -apple-system, sans-serif; }
+main { min-height: 100svh; max-width: 440px; margin: 0 auto; padding: calc(32px + env(safe-area-inset-top, 0px)) 20px calc(24px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+.icone { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 10px 30px rgba(31,79,209,.25); }
+h1 { font-size: 1.7rem; margin: 0; letter-spacing: -.01em; }
+.sub { color: var(--muted); margin: -12px 0 0; font-size: 1rem; }
+.painel { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+.btn { display: block; width: 100%; border: 0; border-radius: 16px; padding: 18px 20px; font: inherit; font-size: 1.15rem; font-weight: 700; background: var(--accent); color: #fff; text-decoration: none; cursor: pointer; }
+@media (prefers-color-scheme: dark) { .btn { color: #0f1426; } }
+.btn:active { transform: scale(.98); }
+.link { color: var(--accent); font-weight: 600; text-decoration: none; font-size: .95rem; }
+.passos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+.passos li { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: center; font-size: 1rem; }
+.passos .n { width: 32px; height: 32px; border-radius: 50%; background: var(--soft); color: var(--accent); font-weight: 800; display: grid; place-items: center; }
+.tecla { display: inline-flex; align-items: center; justify-content: center; min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg); font-weight: 800; vertical-align: middle; }
+.ok { font-size: 3rem; line-height: 1; color: var(--good); }
+.nota { color: var(--muted); font-size: .85rem; }
+.seta { position: fixed; top: calc(6px + env(safe-area-inset-top, 0px)); right: 14px; font-size: 2rem; color: var(--accent); animation: pula 1s ease-in-out infinite; }
+@keyframes pula { 50% { transform: translateY(-6px); } }
+@media (prefers-reduced-motion: reduce) { .seta { animation: none; } }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <img class="icone" src="../icon-512.png" alt="">
+  <h1>ENEM da Tabita</h1>
+  <p class="sub">Cronômetro, plano e exercícios para o ENEM</p>
+
+  <!-- 1. Dentro do WhatsApp/Instagram no Android -->
+  <div class="painel" id="p-emapp" hidden>
+    <a class="btn" id="bChrome" href="#">Continuar no Chrome</a>
+    <p class="nota">O WhatsApp não consegue instalar apps. Toque no botão para abrir esta página no Chrome.</p>
+  </div>
+
+  <!-- 2. Chrome pronto para instalar com um toque -->
+  <div class="painel" id="p-instalar" hidden>
+    <button class="btn" id="bInstalar">Instalar app</button>
+    <p class="nota">Depois é só procurar o ícone azul na tela inicial.</p>
+  </div>
+
+  <!-- 3. Android sem botão automático -->
+  <div class="painel" id="p-android" hidden>
+    <span class="seta" aria-hidden="true">↑</span>
+    <ol class="passos">
+      <li><span class="n">1</span><span>Toque nos <span class="tecla">⋮</span> no canto de cima da tela</span></li>
+      <li><span class="n">2</span><span>Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b></span></li>
+      <li><span class="n">3</span><span>Confirme em <b>Instalar</b></span></li>
+    </ol>
+  </div>
+
+  <!-- 4. iPhone -->
+  <div class="painel" id="p-ios" hidden>
+    <ol class="passos">
+      <li><span class="n">1</span><span>Toque em <b>Compartilhar</b> <span class="tecla">⬆</span> na barra do Safari</span></li>
+      <li><span class="n">2</span><span>Toque em <b>Adicionar à Tela de Início</b></span></li>
+      <li><span class="n">3</span><span>Toque em <b>Adicionar</b></span></li>
+    </ol>
+    <p class="nota" id="nota-ios"></p>
+  </div>
+
+  <!-- 5. Instalado -->
+  <div class="painel" id="p-pronto" hidden>
+    <div class="ok" aria-hidden="true">✓</div>
+    <p><b>App instalado!</b><br>O ícone <b>ENEM Tabita</b> está na sua tela inicial.</p>
+    <a class="btn" href="../">Abrir o app</a>
+  </div>
+
+  <!-- 6. Computador -->
+  <div class="painel" id="p-pc" hidden>
+    <ol class="passos">
+      <li><span class="n">1</span><span>Clique no ícone de instalar no fim da barra de endereço, ou em <span class="tecla">⋮</span></span></li>
+      <li><span class="n">2</span><span>Escolha <b>Instalar página como app</b></span></li>
+    </ol>
+  </div>
+
+  <a class="link" id="semInstalar" href="../">Abrir sem instalar</a>
+</main>
+<script>
+(function () {
+  var ua = navigator.userAgent;
+  var android = /Android/i.test(ua);
+  var ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var emApp = /WhatsApp|FBAN|FBAV|FB_IAB|Instagram|Line\/|Twitter|TikTok|; wv\)/i.test(ua);
+  var iosNaoSafari = ios && /CriOS|FxiOS|EdgiOS/i.test(ua);
+  var instalado = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  var evento = null;
+
+  function mostrar(id) {
+    ['p-emapp', 'p-instalar', 'p-android', 'p-ios', 'p-pronto', 'p-pc'].forEach(function (p) { document.getElementById(p).hidden = p !== id; });
+    document.getElementById('semInstalar').hidden = id === 'p-pronto';
+  }
+
+  if (instalado) { location.replace('../'); return; }
+
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('../sw.js').catch(function () {});
+
+  if (android && emApp) {
+    var alvo = location.host + location.pathname;
+    document.getElementById('bChrome').href = 'intent://' + alvo + '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(location.href) + ';end';
+    mostrar('p-emapp');
+    return;
+  }
+  if (ios) {
+    mostrar('p-ios');
+    if (emApp || iosNaoSafari) document.getElementById('nota-ios').textContent = 'Importante: no iPhone só dá para instalar pelo Safari. Copie o link e abra no Safari.';
+    return;
+  }
+
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); evento = e; mostrar('p-instalar'); });
+  window.addEventListener('appinstalled', function () { mostrar('p-pronto'); });
+  document.getElementById('bInstalar').addEventListener('click', function () {
+    if (!evento) return;
+    evento.prompt();
+    evento.userChoice.then(function (r) { evento = null; if (r.outcome === 'accepted') mostrar('p-pronto'); else mostrar(android ? 'p-android' : 'p-pc'); });
+  });
+  // Enquanto o Chrome não libera o botão, mostra o caminho manual depois de alguns segundos
+  setTimeout(function () { if (!evento && document.getElementById('p-pronto').hidden) mostrar(android ? 'p-android' : 'p-pc'); }, 3500);
+})();
+</script>
+</body>
+</html>
